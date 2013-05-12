@@ -1,5 +1,5 @@
 name 'puppetlabs-dhcp'
-version '0.1.0'
+version '1.1.1'
 source 'git://github.com/puppetlabs/puppetlabs-dhcp.git'
 author 'puppetlabs'
 license 'Apache License Version 2.0'
