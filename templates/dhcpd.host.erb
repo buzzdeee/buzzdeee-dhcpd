@@ -1,4 +1,7 @@
 host <%= host %> {
+<% if comment != '' -%>
+  # <%= comment %>
+<% end -%>
   hardware ethernet   <%= mac %>;
   fixed-address       <%= ip %>;
   option host-name    "<%= name %>";
