@@ -5,14 +5,9 @@ class dhcp (
   $dnsdomain,
   $nameservers,
   $ntpservers,
-  $dhcp_conf_header    = 'dhcp/dhcpd.conf-header.erb', # default template
-  $dhcp_conf_pxe       = 'dhcp/dhcpd.conf.pxe.erb',    # default template
-  $dhcp_conf_extra     = 'dhcp/dhcpd.conf-extra.erb',  # default template
+  $dhcp_conf_header    = 'dhcpd/dhcpd.conf-header.erb', # default template
+  $dhcp_conf_extra     = 'dhcpd/dhcpd.conf-extra.erb',  # default template
   $dhcp_conf_fragments = {},
-  $interfaces          = undef,
-  $interface           = 'NOTSET',
-  $pxeserver           = undef,
-  $pxefilename         = undef,
   $logfacility         = 'daemon',
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
@@ -51,12 +46,6 @@ class dhcp (
     target  => "${dhcp_dir}/dhcpd.conf",
     content => template($dhcp_conf_header),
     order   => 01,
-  }
-
-  concat::fragment { 'dhcp-conf-pxe':
-    target  => "${dhcp_dir}/dhcpd.conf",
-    content => template($dhcp_conf_pxe),
-    order   => 20,
   }
 
   concat::fragment { 'dhcp-conf-extra':
