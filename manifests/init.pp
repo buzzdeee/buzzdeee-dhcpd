@@ -16,7 +16,6 @@ class dhcp (
   $logfacility         = 'daemon',
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
-  $failover            = '',
   $ddns                = false
 ) {
 
@@ -40,13 +39,6 @@ class dhcp (
 
   package { $packagename:
     ensure => installed,
-  }
-
-  # OS Specifics
-  case $operatingsystem {
-    'debian','ubuntu': {
-      include dhcp::debian
-    }
   }
 
   include concat::setup
@@ -121,7 +113,5 @@ class dhcp (
     require   => Package[$packagename],
     restart   => "${dhcpd} -t && service ${servicename} restart",
   }
-
-  include dhcp::monitor
 
 }
