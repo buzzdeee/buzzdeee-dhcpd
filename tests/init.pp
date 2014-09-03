@@ -1,5 +1,3 @@
-$ddnskeyname = 'dhcp_updater'
-
 class { 'dhcp':
   dnsdomain    => [
     'example.com',
@@ -8,8 +6,6 @@ class { 'dhcp':
   nameservers  => ['10.1.1.10'],
   ntpservers   => ['us.pool.ntp.org'],
   interfaces   => ['eth0'],
-  dnsupdatekey => "/etc/bind/keys.d/$ddnskeyname",
-  require      => Bind::Key[ $ddnskeyname ],
   pxeserver    => '10.1.1.5',
   pxefilename  => 'pxelinux.0',
 }

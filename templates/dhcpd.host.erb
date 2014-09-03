@@ -5,4 +5,13 @@ host <%= host %> {
   hardware ethernet   <%= mac %>;
   fixed-address       <%= ip %>;
   option host-name    "<%= name %>";
+<% if nextserver -%>
+  next-server         <%= nextserver %>;
+<% end -%>
+<% if filename -%>
+  filename            "<%= filename %>";
+<% end -%>
+<% if rootpath -%>
+  option root-path    "<%= rootpath %>";
+<% end -%>
 }

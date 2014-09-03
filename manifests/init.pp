@@ -16,7 +16,6 @@ class dhcp (
   $logfacility         = 'daemon',
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
-  $ddns                = false
 ) {
 
   include dhcp::params
@@ -64,12 +63,6 @@ class dhcp (
     target  => "${dhcp_dir}/dhcpd.conf",
     content => template($dhcp_conf_extra),
     order   => 99,
-  }
-
-  # Using DDNS will require a dhcp::ddns class composition, else, we should
-  # turn it off.
-  unless ( $ddns ) {
-    class { "dhcp::ddns": enable => false; }
   }
 
   # Any additional dhcpd.conf fragments the user passed in as a hash for
