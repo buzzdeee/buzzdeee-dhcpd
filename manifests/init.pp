@@ -7,7 +7,6 @@ class dhcp (
   $ntpservers,
   $authoritative       = true,
   $dhcp_conf_header    = 'dhcpd/dhcpd.conf-header.erb', # default template
-  $dhcp_conf_extra     = 'dhcpd/dhcpd.conf-extra.erb',  # default template
   $dhcp_conf_fragments = {},
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
@@ -46,12 +45,6 @@ class dhcp (
     target  => "${dhcp_dir}/dhcpd.conf",
     content => template($dhcp_conf_header),
     order   => 01,
-  }
-
-  concat::fragment { 'dhcp-conf-extra':
-    target  => "${dhcp_dir}/dhcpd.conf",
-    content => template($dhcp_conf_extra),
-    order   => 99,
   }
 
   # Any additional dhcpd.conf fragments the user passed in as a hash for
