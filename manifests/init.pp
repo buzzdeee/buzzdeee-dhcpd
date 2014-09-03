@@ -5,10 +5,10 @@ class dhcp (
   $dnsdomain,
   $nameservers,
   $ntpservers,
+  $authoritative       = true,
   $dhcp_conf_header    = 'dhcpd/dhcpd.conf-header.erb', # default template
   $dhcp_conf_extra     = 'dhcpd/dhcpd.conf-extra.erb',  # default template
   $dhcp_conf_fragments = {},
-  $logfacility         = 'daemon',
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
 ) {

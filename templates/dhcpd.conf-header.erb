@@ -1,10 +1,13 @@
 # ----------
 # dhcpd.conf
 # ----------
+<% if authoritative -%>
 authoritative;
+<% else -%>
+not authoritative;
+<% end -%>
 default-lease-time <%= default_lease_time %>;
 max-lease-time <%= max_lease_time %>;
-log-facility <%= logfacility %>;
 
 # ----------
 # Options
