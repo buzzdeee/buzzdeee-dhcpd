@@ -2,15 +2,14 @@
 # <%= name network mask %>
 #################################
 subnet <%= network %> netmask <%= mask %> {
-  pool
-  {
-<% range.each do |r| -%>
-    range <%= r %>;
-<% end -%>
-  }
-
   option subnet-mask <%= mask %>;
+<% if gateway -%>
   option routers <%= gateway %>;
+<% end -%>
+<% if range -%>
+    range <%= range %>;
+<% end -%>
+
 <% if options.is_a? Array -%>
 <%   options.each do |opt| -%>
   option <%= opt %>;
