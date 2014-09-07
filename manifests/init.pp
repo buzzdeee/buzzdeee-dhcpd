@@ -7,8 +7,6 @@ class dhcpd (
   $authoritative       = true,
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
-  $shared_network      = true,
-  $shared_network_name = '',
   $service_enable      = true,
   $service_ensure      = 'running',
 ) {
@@ -27,19 +25,6 @@ class dhcpd (
     target  => $config_file,
     content => template('dhcpd/dhcpd.conf-header.erb'),
     order   => 1,
-  }
-
-  unless ( $shared_network ) {
-    concat::fragment { 'dhcpd-share-network-header':
-      target  => $::dhcpd::params::config_file,
-      content => template('dhcpd/dhcpd.share-network-header.erb'),
-      order   => 5,
-    }
-    concat::fragment { 'dhcpd-share-network-footer':
-      target  => $::dhcpd::params::config_file,
-      content => template('dhcpd/dhcpd.share-network-footer.erb'),
-      order   => 99,
-    }
   }
 
   service { $service_name:

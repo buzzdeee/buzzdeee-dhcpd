@@ -12,7 +12,6 @@ define dhcpd::host (
 ) {
 
   include dhcpd::params
-  $host = $name
 
   $config_file = $dhcpd::params::config_file
 
