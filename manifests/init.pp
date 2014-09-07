@@ -4,7 +4,6 @@
 class dhcpd (
   $dnsdomain,
   $nameservers,
-  $ntpservers,
   $authoritative       = true,
   $default_lease_time  = 3600,
   $max_lease_time      = 86400,
@@ -19,9 +18,6 @@ class dhcpd (
   $config_file  = $::dhcpd::params::config_file
   $service_name = $::dhcpd::params::service_name
 
-  include concat::setup
-
-  #
   # Build up the dhcpd.conf
   concat { $::dhcpd::params::config_file: 
     order => 'numeric',
