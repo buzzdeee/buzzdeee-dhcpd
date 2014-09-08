@@ -9,6 +9,7 @@ class dhcpd (
   $max_lease_time      = 86400,
   $service_enable      = true,
   $service_ensure      = 'running',
+  $service_flags       = undef,
 ) {
 
   include dhcpd::params
@@ -18,6 +19,9 @@ class dhcpd (
 
   # Build up the dhcpd.conf
   concat { $::dhcpd::params::config_file: 
+    owner => 'root',
+    group => '0',
+    mode  => '0644',
     order => 'numeric',
   }
 
@@ -30,6 +34,7 @@ class dhcpd (
   service { $service_name:
     ensure    => $service_ensure,
     enable    => $service_enable,
+    flags     => $service_flags,
     hasstatus => true,
     subscribe => Concat[$config_file],
     require   => Concat[$config_file],
