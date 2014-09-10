@@ -28,7 +28,7 @@ class dhcpd (
   concat::fragment { 'dhcpd-conf-header':
     target  => $config_file,
     content => template('dhcpd/dhcpd.conf-header.erb'),
-    order   => 1,
+    order   => '1',
   }
 
   service { $service_name:
