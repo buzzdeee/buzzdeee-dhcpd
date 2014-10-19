@@ -4,12 +4,12 @@
 class dhcpd (
   $dnsdomain,
   $nameservers,
-  $authoritative       = true,
-  $default_lease_time  = 3600,
-  $max_lease_time      = 86400,
-  $service_enable      = true,
-  $service_ensure      = 'running',
-  $service_flags       = undef,
+  $authoritative      = true,
+  $default_lease_time = 3600,
+  $max_lease_time     = 86400,
+  $service_enable     = true,
+  $service_ensure     = 'running',
+  $service_flags      = undef,
 ) {
 
   include dhcpd::params
@@ -39,5 +39,4 @@ class dhcpd (
     subscribe => Concat[$config_file],
     require   => Concat[$config_file],
   }
-
 }
