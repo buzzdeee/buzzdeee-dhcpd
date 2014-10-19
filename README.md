@@ -1,4 +1,4 @@
-# Manage DHCP with Puppet 
+# Manage DHCP with Puppet
 
 This module installs and manages the DHCP server daemons.
 
