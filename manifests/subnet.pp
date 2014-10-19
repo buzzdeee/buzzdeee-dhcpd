@@ -4,9 +4,9 @@
 define dhcpd::subnet (
   $network,
   $netmask,
-  $routers = undef,
-  $range = undef,
-  $options = '',
+  $routers    = undef,
+  $range      = undef,
+  $options    = '',
   $parameters = '',
 ) {
 
@@ -25,4 +25,3 @@ define dhcpd::subnet (
     order   => '90',
   }
 }
-
