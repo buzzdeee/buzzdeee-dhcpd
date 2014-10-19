@@ -1,10 +1,10 @@
 class { 'dhcp':
-  dnsdomain    => [ 'example.com', '1.1.10.in-addr.arpa', ],
-  nameservers  => ['10.1.1.10'],
-  ntpservers   => ['us.pool.ntp.org'],
-  interfaces   => ['eth0'],
-  pxeserver    => '10.1.1.5',
-  pxefilename  => 'pxelinux.0',
+  dnsdomain   => [ 'example.com', '1.1.10.in-addr.arpa', ],
+  nameservers => ['10.1.1.10'],
+  ntpservers  => ['us.pool.ntp.org'],
+  interfaces  => ['eth0'],
+  pxeserver   => '10.1.1.5',
+  pxefilename => 'pxelinux.0',
 }
 
 dhcp::pool{ 'example.com':
