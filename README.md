@@ -1,16 +1,12 @@
-# Manage DHCP with Puppet
+# Manage OpenBSD's DHCP Server with Puppet
 
-This module installs and manages the DHCP server daemons.
+This module manages the DHCP server daemon found in the base installation of OpenBSD.
 
 ## Features
 
 * Multiple subnet support
 * Host reservations
-* Secure dynamic DNS updates when combined with Bind
-* Failover
-* Works on Debian, FreeBSD, Darwin
-* In production for over three years
-* supporting several hundred clients in multiple subnet VLANs
+* Only works on OpenBSD
 
 ## Usage
 
@@ -20,28 +16,21 @@ Define the server and the zones it will be responsible for.
 class { 'dhcp':
   dnsdomain    => [
     'dc1.example.net',
-    '1.0.10.in-addr.arpa',
     ],
   nameservers  => ['10.0.1.20'],
-  ntpservers   => ['us.pool.ntp.org'],
-  interfaces   => ['eth0'],
-  dnsupdatekey => "/etc/bind/keys.d/$ddnskeyname",
-  require      => Bind::Key[ $ddnskeyname ],
-  pxeserver    => '10.0.1.50',
-  pxefilename  => 'pxelinux.0',
 }
 ```
 
-### dhcp::pool
+### dhcp::subnet
 
-Define the pool attributes
+Define the subnet attributes
 
 ```Puppet
 dhcp::pool{ 'ops.dc1.example.net':
   network => '10.0.1.0',
-  mask    => '255.255.255.0',
+  netmask => '255.255.255.0',
   range   => '10.0.1.100 10.0.1.200',
-  gateway => '10.0.1.1',
+  routers => '10.0.1.1',
 }
 ```
 
@@ -56,38 +45,7 @@ dhcp::host {
 }
 ```
 
-### dhcp::failover
+## Contribute
 
-The ISC DHCPd also supports failover and load balancing between a pair of DHCP
-servers.  This proves very handy when you really rely on your DHCP servers.
-
-On the master, inform the master that it should be such:
-
-```Puppet
-class { dhcp::failover:
-  peer_address => $secondaryServerIp,
-}
-```
-
-While on the slave, inform it of its lowly status:
-
-```Puppet
-class { dhcp::failover:
-  role         => "secondary",
-  peer_address => $primaryServerIp,
-}
-```
-
-You then need to tell your pools that it should balance itself out between
-masters.  I use DHCP failover for all of the pools I am managing, so a simple
-default is all I need for this.
-
-```Puppet
-Dhcp::Pool { failover => "dhcp-failover" }
-```
-
-## Contributors
-
-Zach Leslie <zach.leslie@gmail.com>
-Ben Hughes <git@mumble.org.uk>
+Please help me make this module awesome!  Send pull requests and file issues.
 
