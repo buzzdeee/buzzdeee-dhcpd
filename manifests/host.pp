@@ -4,11 +4,11 @@
 define dhcpd::host (
   $ip,
   $mac,
-  $comment='',
+  $comment    = '',
   $nextserver = false,
-  $filename = false,
-  $rootpath = false,
-  $rfc1048  = false,
+  $filename   = false,
+  $rootpath   = false,
+  $rfc1048    = false,
 ) {
 
   include dhcpd::params
@@ -21,4 +21,3 @@ define dhcpd::host (
     order   => '20',
   }
 }
-
