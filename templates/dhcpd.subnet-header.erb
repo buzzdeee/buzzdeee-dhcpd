@@ -10,18 +10,10 @@
     range <%= range %>;
 <% end -%>
 
-<% if options.is_a? Array -%>
-<%   options.each do |opt| -%>
+<% Array(options).each do |opt| -%>
     option <%= opt %>;
-<%   end -%>
-<% elsif options != '' -%>
-    option <%= options %>;
 <% end -%>
-<% if parameters.is_a? Array -%>
-<%   parameters.each do |param| -%>
+<% Array(parameters).each do |param| -%>
     <%= param %>;
-<%   end -%>
-<% elsif parameters != '' -%>
-    <%= parameters %>;
 <% end -%>
 
