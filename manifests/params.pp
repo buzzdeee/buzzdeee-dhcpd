@@ -1,3 +1,5 @@
+# class dhcpd::params
+# setting the main parameters for the module
 class dhcpd::params {
 
   case $::operatingsystem {
