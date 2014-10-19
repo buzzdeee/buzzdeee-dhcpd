@@ -18,7 +18,7 @@ class dhcpd (
   $service_name = $::dhcpd::params::service_name
 
   # Build up the dhcpd.conf
-  concat { $::dhcpd::params::config_file: 
+  concat { $::dhcpd::params::config_file:
     owner => 'root',
     group => '0',
     mode  => '0644',
