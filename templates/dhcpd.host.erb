@@ -1,20 +1,20 @@
-    host <%= name %> {
-<% if comment != '' -%>
-      # <%= comment %>
+    host <%= @name %> {
+<% if @comment != '' -%>
+      # <%= @comment %>
 <% end -%>
-      hardware ethernet   <%= mac %>;
-      fixed-address       <%= ip %>;
-<% if nextserver -%>
-      next-server         <%= nextserver %>;
+      hardware ethernet   <%= @mac %>;
+      fixed-address       <%= @ip %>;
+<% if @nextserver -%>
+      next-server         <%= @nextserver %>;
 <% end -%>
-<% if filename -%>
-      filename            "<%= filename %>";
+<% if @filename -%>
+      filename            "<%= @filename %>";
 <% end -%>
-<% if rootpath -%>
-      option root-path    "<%= rootpath %>";
+<% if @rootpath -%>
+      option root-path    "<%= @rootpath %>";
 <% end -%>
-<% if rfc1048 -%>
+<% if @rfc1048 -%>
       always-reply-rfc1048 "true";
 <% end -%>
-      option host-name    "<%= name %>";
+      option host-name    "<%= @name %>";
     }

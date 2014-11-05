@@ -1,27 +1,19 @@
 #################################
 # <%= name network netmask %>
 #################################
-  subnet <%= network %> netmask <%= netmask %> {
-    option subnet-mask <%= netmask %>;
-<% if routers -%>
-    option routers <%= routers %>;
+  subnet <%= @network %> netmask <%= @netmask %> {
+    option subnet-mask <%= @netmask %>;
+<% if @routers -%>
+    option routers <%= @routers %>;
 <% end -%>
-<% if range -%>
-    range <%= range %>;
+<% if @range -%>
+    range <%= @range %>;
 <% end -%>
 
-<% if options.is_a? Array -%>
-<%   options.each do |opt| -%>
+<% Array(options).each do |opt| -%>
     option <%= opt %>;
-<%   end -%>
-<% elsif options != '' -%>
-    option <%= options %>;
 <% end -%>
-<% if parameters.is_a? Array -%>
-<%   parameters.each do |param| -%>
+<% Array(parameters).each do |param| -%>
     <%= param %>;
-<%   end -%>
-<% elsif parameters != '' -%>
-    <%= parameters %>;
 <% end -%>
 
