@@ -6,8 +6,8 @@ define dhcpd::subnet (
   $netmask,
   $routers    = undef,
   $range      = undef,
-  $options    = '',
-  $parameters = '',
+  $options    = undef,
+  $parameters = undef,
 ) {
 
   include dhcpd::params
