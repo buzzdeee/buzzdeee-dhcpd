@@ -18,6 +18,6 @@ define dhcpd::host (
   concat::fragment { "dhcpd_host_${name}":
     target  => $config_file,
     content => template('dhcpd/dhcpd.host.erb'),
-    order   => '20',
+    order   => '020',
   }
 }

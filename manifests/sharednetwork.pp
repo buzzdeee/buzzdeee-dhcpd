@@ -10,7 +10,7 @@ define dhcpd::sharednetwork {
   concat::fragment { "dhcpd_sharednetwork-header_${name}":
     target  => $config_file,
     content => template('dhcpd/dhcpd.sharednetwork-header.erb'),
-    order   => '5',
+    order   => '005',
   }
   concat::fragment { "dhcpd_sharednetwork-footer_${name}":
     target  => $config_file,

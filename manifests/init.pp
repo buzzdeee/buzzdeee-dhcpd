@@ -22,13 +22,12 @@ class dhcpd (
     owner => 'root',
     group => '0',
     mode  => '0644',
-    order => 'numeric',
   }
 
   concat::fragment { 'dhcpd-conf-header':
     target  => $config_file,
     content => template('dhcpd/dhcpd.conf-header.erb'),
-    order   => '1',
+    order   => '001',
   }
 
   service { $service_name:

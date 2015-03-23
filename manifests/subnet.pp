@@ -17,11 +17,11 @@ define dhcpd::subnet (
   concat::fragment { "dhcpd_subnet-header_${name}":
     target  => $config_file,
     content => template('dhcpd/dhcpd.subnet-header.erb'),
-    order   => '5',
+    order   => '005',
   }
   concat::fragment { "dhcpd_subnet-footer_${name}":
     target  => $config_file,
     content => template('dhcpd/dhcpd.subnet-footer.erb'),
-    order   => '90',
+    order   => '090',
   }
 }
