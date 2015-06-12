@@ -17,4 +17,7 @@
       always-reply-rfc1048 "true";
 <% end -%>
       option host-name    "<%= @name %>";
+<% if @domainname -%>
+      option domain-name "<%= @domainname %>";
+<% end -%>
     }

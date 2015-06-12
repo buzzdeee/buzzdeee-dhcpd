@@ -9,6 +9,7 @@ define dhcpd::host (
   $filename   = false,
   $rootpath   = false,
   $rfc1048    = false,
+  $domainname = false,
 ) {
 
   include dhcpd::params
