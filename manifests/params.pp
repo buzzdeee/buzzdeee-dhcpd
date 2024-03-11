@@ -2,8 +2,8 @@
 # setting the main parameters for the module
 class dhcpd::params {
 
-  case $::operatingsystem {
-    'openbsd': {
+  case $facts['os']['family'] {
+    'OpenBSD': {
       $config_file  = '/etc/dhcpd.conf'
       $service_name = 'dhcpd'
     }
