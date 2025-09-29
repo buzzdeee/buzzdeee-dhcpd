@@ -2,14 +2,15 @@
 # DHCP Server Configuration
 # ----------
 class dhcpd (
-  $dnsdomain,
-  $nameservers,
-  $authoritative      = true,
-  $default_lease_time = 3600,
-  $max_lease_time     = 86400,
-  $service_enable     = true,
-  $service_ensure     = 'running',
-  $service_flags      = undef,
+  String  $dnsdomain,
+  String  $nameservers,
+  Boolean $authoritative      = true,
+  Integer $default_lease_time = 3600,
+  Integer $max_lease_time     = 86400,
+  Boolean $service_enable     = true,
+  String  $service_ensure     = 'running',
+  Optional[String] $service_flags = undef,
+  Hash    $dhcpd_config       = {},
 ) {
 
   include dhcpd::params
@@ -17,17 +18,12 @@ class dhcpd (
   $config_file  = $::dhcpd::params::config_file
   $service_name = $::dhcpd::params::service_name
 
-  # Build up the dhcpd.conf
-  concat { $::dhcpd::params::config_file:
-    owner => 'root',
-    group => '0',
-    mode  => '0644',
-  }
-
-  concat::fragment { 'dhcpd-conf-header':
-    target  => $config_file,
-    content => template('dhcpd/dhcpd.conf-header.erb'),
-    order   => '001',
+  file { $config_file:
+    ensure  => file,
+    owner   => 'root',
+    group   => '0',
+    mode    => '0644',
+    content => template('dhcpd/dhcpd.conf.erb'),
   }
 
   service { $service_name:
@@ -35,7 +31,7 @@ class dhcpd (
     enable    => $service_enable,
     flags     => $service_flags,
     hasstatus => true,
-    subscribe => Concat[$config_file],
-    require   => Concat[$config_file],
+    subscribe => File[$config_file],
+    require   => File[$config_file],
   }
 }

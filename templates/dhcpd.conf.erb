@@ -1,0 +1,62 @@
+# ----------
+# dhcpd.conf
+# ----------
+<% if @authoritative -%>
+authoritative;
+<% else -%>
+not authoritative;
+<% end -%>
+default-lease-time <%= @default_lease_time %>;
+max-lease-time <%= @max_lease_time %>;
+
+# ----------
+# Options
+# ----------
+option domain-name "<%= @dnsdomain %>";
+option domain-name-servers <%= @nameservers %>;
+
+<% @dhcpd_config['sharednetworks'].each do |name, sharednet| -%>
+shared-network <%= sharednet['name'] %> {
+<% sharednet['subnets'].each do |subnet| -%>
+#################################
+# <%= sharednet['name'] %> <%= subnet['network'] %> <%= subnet['netmask'] %>
+#################################
+  subnet <%= subnet['network'] %> netmask <%= subnet['netmask'] %> {
+    option subnet-mask <%= subnet['netmask'] %>;
+    option routers <%= subnet['routers'] %>;
+<% if subnet['range'] -%>
+    range <%= subnet['range'] %>;
+<% end -%>
+
+    <% if subnet['hosts'] -%>
+    <% subnet['hosts'].each do |hname, host| -%>
+    host <%= hname %> {
+      <% if host['comment'] && host['comment'] != '' -%>
+      # <%= host['comment'] %>
+      <% end -%>
+      hardware ethernet   <%= host['mac'] %>;
+      fixed-address       <%= host['ip'] %>;
+      <% if host['nextserver'] -%>
+      next-server         <%= host['nextserver'] %>;
+      <% end -%>
+      <% if host['filename'] -%>
+      filename            "<%= host['filename'] %>";
+      <% end -%>
+      <% if host['rootpath'] -%>
+      option root-path    "<%= host['rootpath'] %>";
+      <% end -%>
+      <% if host['rfc1048'] -%>
+      always-reply-rfc1048 "true";
+      <% end -%>
+      option host-name    "<%= hname %>";
+      <% if host['domainname'] -%>
+      option domain-name "<%= host['domainname'] %>";
+      <% end -%>
+    }
+    <% end -%>
+    <% end -%>
+  }
+<% end -%>
+} # shared-network <%= sharednet['name'] %>
+
+<% end -%>
