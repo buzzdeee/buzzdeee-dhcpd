@@ -28,33 +28,33 @@ shared-network <%= sharednet['name'] %> {
     range <%= subnet['range'] %>;
 <% end -%>
 
-    <% if subnet['hosts'] -%>
-    <% subnet['hosts'].each do |hname, host| -%>
+<% if subnet['hosts'] -%>
+<% subnet['hosts'].each do |hname, host| -%>
     host <%= hname %> {
-      <% if host['comment'] && host['comment'] != '' -%>
+<% if host['comment'] && host['comment'] != '' -%>
       # <%= host['comment'] %>
-      <% end -%>
+<% end -%>
       hardware ethernet   <%= host['mac'] %>;
       fixed-address       <%= host['ip'] %>;
-      <% if host['nextserver'] -%>
+<% if host['nextserver'] -%>
       next-server         <%= host['nextserver'] %>;
-      <% end -%>
-      <% if host['filename'] -%>
+<% end -%>
+<% if host['filename'] -%>
       filename            "<%= host['filename'] %>";
-      <% end -%>
-      <% if host['rootpath'] -%>
+<% end -%>
+<% if host['rootpath'] -%>
       option root-path    "<%= host['rootpath'] %>";
-      <% end -%>
-      <% if host['rfc1048'] -%>
+<% end -%>
+<% if host['rfc1048'] -%>
       always-reply-rfc1048 "true";
-      <% end -%>
+<% end -%>
       option host-name    "<%= hname %>";
-      <% if host['domainname'] -%>
+<% if host['domainname'] -%>
       option domain-name "<%= host['domainname'] %>";
-      <% end -%>
+<% end -%>
     }
-    <% end -%>
-    <% end -%>
+<% end -%>
+<% end -%>
   }
 <% end -%>
 } # shared-network <%= sharednet['name'] %>
